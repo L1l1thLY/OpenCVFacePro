@@ -188,6 +188,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FaceDetector.h" />
     <ClInclude Include="FaceDetectPro.h" />
     <ClInclude Include="FaceDetectProDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FaceDetector.cpp" />
     <ClCompile Include="FaceDetectPro.cpp" />
     <ClCompile Include="FaceDetectProDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
