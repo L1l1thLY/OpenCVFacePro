@@ -189,14 +189,19 @@ void CFaceDetectProDlg::OnBnClickedButton1() {
 	CString nameOfFace;
 	GetDlgItemText(IDC_EDIT2, nameOfFace);
 	CString targetPath("D:\\FacesData\\TrainData");
-
+	CString nameListPath("D:\\FacesData\\NameLog.txt");
 	//MessageBox((LPCTSTR)nameOfFace, (LPCTSTR)selectedPath, MB_ICONQUESTION);
 	if (selectedPath.IsEmpty() || nameOfFace.IsEmpty()) {
 		MessageBox(TEXT("请输入正确的路径和名字"), TEXT("ERROR"), MB_ICONINFORMATION);
 		return;
 	}
 	else {
+		CStdioFile nameListFile;
+		CString line;
+		nameListFile.Open(nameListPath.GetBuffer(0), CFile::modeRead);
+		while (nameListFile.ReadString(line)) {
 
+		}
 	}
 
 
