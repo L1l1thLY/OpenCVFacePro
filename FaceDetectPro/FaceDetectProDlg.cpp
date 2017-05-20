@@ -7,6 +7,7 @@
 #include "FaceDetectPro.h"
 #include "FaceDetectProDlg.h"
 #include "afxdialogex.h"
+#include "FaceDetector.h"
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/imgproc/imgproc.hpp>  
@@ -196,12 +197,9 @@ void CFaceDetectProDlg::OnBnClickedButton1() {
 		return;
 	}
 	else {
-		CStdioFile nameListFile;
-		CString line;
-		nameListFile.Open(nameListPath.GetBuffer(0), CFile::modeRead);
-		while (nameListFile.ReadString(line)) {
+		FaceDetector aFaced(nameListPath,nameOfFace,selectedPath);
+		aFaced.Hello();
 
-		}
 	}
 
 
