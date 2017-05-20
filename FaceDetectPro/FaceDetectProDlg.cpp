@@ -3,9 +3,17 @@
 //
 
 #include "stdafx.h"
+#include "resource.h"
 #include "FaceDetectPro.h"
 #include "FaceDetectProDlg.h"
 #include "afxdialogex.h"
+#include <iostream>
+#include <opencv2/highgui/highgui.hpp>  
+#include <opencv2/imgproc/imgproc.hpp>  
+#include <opencv2/core/core.hpp> 
+
+
+using namespace cv;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -64,6 +72,10 @@ BEGIN_MESSAGE_MAP(CFaceDetectProDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDOK, &CFaceDetectProDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &CFaceDetectProDlg::OnBnClickedButton1)
+	ON_EN_CHANGE(IDC_MFCEDITBROWSE1, &CFaceDetectProDlg::OnEnChangeMfceditbrowse1)
+	ON_EN_CHANGE(IDC_EDIT2, &CFaceDetectProDlg::OnEnChangeEdit2)
 END_MESSAGE_MAP()
 
 
@@ -152,3 +164,60 @@ HCURSOR CFaceDetectProDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CFaceDetectProDlg::OnBnClickedOk() {
+	// TODO: 在此添加控件通知处理程序代码
+
+	VideoCapture cap(0);
+	Mat frame;
+	while (1) {
+		cap >> frame;
+		imshow("调用摄像头", frame);
+		waitKey(30);
+	}
+	CDialogEx::OnOK();
+}
+
+
+
+void CFaceDetectProDlg::OnBnClickedButton1() {
+
+	// TODO: 在此添加控件通知处理程序代码
+	CString selectedPath;
+	GetDlgItemText(IDC_MFCEDITBROWSE1, selectedPath);
+	CString nameOfFace;
+	GetDlgItemText(IDC_EDIT2, nameOfFace);
+	CString targetPath("D:\\FacesData\\TrainData");
+
+	//MessageBox((LPCTSTR)nameOfFace, (LPCTSTR)selectedPath, MB_ICONQUESTION);
+	if (selectedPath.IsEmpty() || nameOfFace.IsEmpty()) {
+		MessageBox(TEXT("请输入正确的路径和名字"), TEXT("ERROR"), MB_ICONINFORMATION);
+		return;
+	}
+	else {
+
+	}
+
+
+}
+
+
+void CFaceDetectProDlg::OnEnChangeMfceditbrowse1() {
+	// TODO:  如果该控件是 RICHEDIT 控件，它将不
+	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void CFaceDetectProDlg::OnEnChangeEdit2() {
+	// TODO:  如果该控件是 RICHEDIT 控件，它将不
+	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+}
