@@ -78,6 +78,7 @@ BEGIN_MESSAGE_MAP(CFaceDetectProDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CFaceDetectProDlg::OnBnClickedButton1)
 	ON_EN_CHANGE(IDC_MFCEDITBROWSE1, &CFaceDetectProDlg::OnEnChangeMfceditbrowse1)
 	ON_EN_CHANGE(IDC_EDIT2, &CFaceDetectProDlg::OnEnChangeEdit2)
+	ON_STN_CLICKED(IDC_PIC, &CFaceDetectProDlg::OnStnClickedPic)
 END_MESSAGE_MAP()
 
 
@@ -167,6 +168,7 @@ HCURSOR CFaceDetectProDlg::OnQueryDragIcon()
 }
 
 
+//IDC_STATIC2
 
 void CFaceDetectProDlg::OnBnClickedOk() {
 	// TODO: 在此添加控件通知处理程序代码
@@ -178,6 +180,13 @@ void CFaceDetectProDlg::OnBnClickedOk() {
 		return;
 	}
 	else {
+		CStatic* pWnd = (CStatic*)GetDlgItem(IDC_PIC); // 得到 Picture Control 句柄  
+		pWnd->ModifyStyle(0, SS_BITMAP); // 修改它的属性为位图  
+		pWnd->SetBitmap((HBITMAP)::LoadImage(NULL,selectedPath.GetBuffer(0),
+			IMAGE_BITMAP,
+			100,
+			100,
+			LR_CREATEDIBSECTION | LR_DEFAULTSIZE | LR_LOADFROMFILE));
 		aFaceRcgnr.Hello();
 	}
 	//CDialogEx::OnOK();
@@ -200,6 +209,14 @@ void CFaceDetectProDlg::OnBnClickedButton1() {
 		return;
 	}
 	else {
+		CStatic* pWnd = (CStatic*)GetDlgItem(IDC_PIC); // 得到 Picture Control 句柄  
+		pWnd->ModifyStyle(0, SS_BITMAP); // 修改它的属性为位图  
+		pWnd->SetBitmap((HBITMAP)::LoadImage(NULL, selectedPath.GetBuffer(0),
+			IMAGE_BITMAP,
+			100,
+			100,
+			LR_CREATEDIBSECTION | LR_DEFAULTSIZE | LR_LOADFROMFILE));
+
 		FaceDetector aFaced(nameListPath,nameOfFace,selectedPath);
 		aFaced.Hello();
 	}
@@ -225,4 +242,9 @@ void CFaceDetectProDlg::OnEnChangeEdit2() {
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void CFaceDetectProDlg::OnStnClickedPic() {
+	// TODO: 在此添加控件通知处理程序代码
 }
