@@ -82,6 +82,7 @@ int FaceDetector::processAndCopy() {
 		if (CopyFile(picPath.GetBuffer(0), targetPath.GetBuffer(0), TRUE)) {
 			MessageBox(TEXT("导入成功"));
 
+			//将新人名写入列表
 			CStdioFile nameListFile;
 			nameListFile.Open(nameLstPath.GetBuffer(0), CFile::modeWrite);
 			nameListFile.SeekToEnd();
