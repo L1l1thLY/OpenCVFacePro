@@ -16,7 +16,10 @@ protected:
 	CList<CString> nameList;
 	CString name;
 	CString picPath;
+	CString nameLstPath;
 	int nameIsExist();
+	int processAndCopy();
+	CString getFileFullName(CString csFilePath);
 	DECLARE_MESSAGE_MAP()
 };
 
