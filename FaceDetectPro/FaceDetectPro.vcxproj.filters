@@ -36,6 +36,9 @@
     <ClInclude Include="FaceDetector.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyFaceRecognizer.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FaceDetectPro.cpp">
@@ -48,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FaceDetector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyFaceRecognizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

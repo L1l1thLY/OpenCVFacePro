@@ -8,6 +8,7 @@
 #include "FaceDetectProDlg.h"
 #include "afxdialogex.h"
 #include "FaceDetector.h"
+#include "MyFaceRecognizer.h"
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>  
 #include <opencv2/imgproc/imgproc.hpp>  
@@ -169,15 +170,17 @@ HCURSOR CFaceDetectProDlg::OnQueryDragIcon()
 
 void CFaceDetectProDlg::OnBnClickedOk() {
 	// TODO: 在此添加控件通知处理程序代码
-
-	VideoCapture cap(0);
-	Mat frame;
-	while (1) {
-		cap >> frame;
-		imshow("调用摄像头", frame);
-		waitKey(30);
+	CString selectedPath;
+	GetDlgItemText(IDC_MFCEDITBROWSE1, selectedPath);
+	MyFaceRecognizer aFaceRcgnr(selectedPath);
+	if (selectedPath.IsEmpty()) {
+		MessageBox(TEXT("请输入正确的路径和名字"), TEXT("ERROR"), MB_ICONINFORMATION);
+		return;
 	}
-	CDialogEx::OnOK();
+	else {
+		aFaceRcgnr.Hello();
+	}
+	//CDialogEx::OnOK();
 }
 
 
@@ -199,7 +202,6 @@ void CFaceDetectProDlg::OnBnClickedButton1() {
 	else {
 		FaceDetector aFaced(nameListPath,nameOfFace,selectedPath);
 		aFaced.Hello();
-
 	}
 
 
