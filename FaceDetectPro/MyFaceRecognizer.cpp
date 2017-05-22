@@ -101,8 +101,8 @@ int MyFaceRecognizer::RecognizeFaceByModel(cv::Ptr<cv::face::FaceRecognizer> mod
 		POSITION pos = nameList.GetHeadPosition();
 		CString name;
 		for (int i = 1; i < count + 1; i++) {
+			name = nameList.GetNext(pos);
 			if (i == predictIndex) {
-				name = nameList.GetNext(pos);
 				MessageBox(TEXT("我的名字是：")+name);
 				return i; //如果存在，返回此名字在名单中的序号
 			}
