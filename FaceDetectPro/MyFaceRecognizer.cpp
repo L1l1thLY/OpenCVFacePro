@@ -32,6 +32,8 @@ MyFaceRecognizer::MyFaceRecognizer(CString picturePath)
 MyFaceRecognizer::~MyFaceRecognizer()
 {
 }
+
+//工具方法：传入文件夹路径，返回文件夹下所有文件
 void MyFaceRecognizer::getFiles(std::string path, std::vector<std::string>& files) {
 	intptr_t hFile = 0;
 	struct _finddata_t fileinfo;
@@ -52,8 +54,8 @@ void MyFaceRecognizer::getFiles(std::string path, std::vector<std::string>& file
 
 
 cv::Ptr<cv::face::FaceRecognizer> MyFaceRecognizer::trainModelFromDir(void) {
-	std::vector<cv::Mat> images;
-	std::vector<int> labels;
+	std::vector<cv::Mat> images;   //图片链表
+	std::vector<int> labels;	   //标签链表
 
 	int countOfPeople = nameList.GetCount();
 
@@ -64,7 +66,7 @@ cv::Ptr<cv::face::FaceRecognizer> MyFaceRecognizer::trainModelFromDir(void) {
 
 		std::string pathToSomePeople_std =  CT2A(pathToSomePeople);
 		std::vector<std::string> files;
-
+		//
 		getFiles(pathToSomePeople_std, files);
 
 		int size = files.size();
@@ -88,14 +90,18 @@ cv::Ptr<cv::face::FaceRecognizer> MyFaceRecognizer::trainModelFromDir(void) {
 }
 
 int MyFaceRecognizer::RecognizeFaceByModel(cv::Ptr<cv::face::FaceRecognizer> model) {
+	//通过选择的路径读出图片
 	std::string picPath_std = CT2A(picPath);
 	cv::Mat picToRcg = cv::imread(picPath_std.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
+
 	if (picToRcg.empty()) {
 		MessageBox(TEXT("出现了一点错误：识别图片没能载入"));
 		return 0;
 	}
 	else {
+		//预测图片
 		int predictIndex = model->predict(picToRcg);
+
 		int count = nameList.GetCount();
 		//检查整个名单列表判断名字是否已经存在
 		POSITION pos = nameList.GetHeadPosition();

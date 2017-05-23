@@ -169,14 +169,14 @@ HCURSOR CFaceDetectProDlg::OnQueryDragIcon()
 
 
 //IDC_STATIC2
-
+//点击人脸识别
 void CFaceDetectProDlg::OnBnClickedOk() {
 	// TODO: 在此添加控件通知处理程序代码
 	CString selectedPath;
 	GetDlgItemText(IDC_MFCEDITBROWSE1, selectedPath);
 	MyFaceRecognizer aFaceRcgnr(selectedPath);
 	if (selectedPath.IsEmpty()) {
-		MessageBox(TEXT("请输入正确的路径和名字"), TEXT("ERROR"), MB_ICONINFORMATION);
+		MessageBox(TEXT("请输入正确的路径"), TEXT("ERROR"), MB_ICONINFORMATION);
 		return;
 	}
 	else {
@@ -193,22 +193,23 @@ void CFaceDetectProDlg::OnBnClickedOk() {
 }
 
 
-
+//点击人脸导入
 void CFaceDetectProDlg::OnBnClickedButton1() {
 
 	// TODO: 在此添加控件通知处理程序代码
 	CString selectedPath;
-	GetDlgItemText(IDC_MFCEDITBROWSE1, selectedPath);
-	CString nameOfFace;
-	GetDlgItemText(IDC_EDIT2, nameOfFace);
-	CString targetPath("D:\\FacesData\\TrainData");
+	GetDlgItemText(IDC_MFCEDITBROWSE1, selectedPath);                  //检测文件浏览编辑器
+	CString nameOfFace;	                                               
+	GetDlgItemText(IDC_EDIT2, nameOfFace);							   //检测名字文本框
+	//CString targetPath("D:\\FacesData\\TrainData");
 	CString nameListPath("D:\\FacesData\\NameLog.txt");
 	//MessageBox((LPCTSTR)nameOfFace, (LPCTSTR)selectedPath, MB_ICONQUESTION);
-	if (selectedPath.IsEmpty() || nameOfFace.IsEmpty()) {
+	if (selectedPath.IsEmpty() || nameOfFace.IsEmpty()) {			   //检查输入参数是否合法
 		MessageBox(TEXT("请输入正确的路径和名字"), TEXT("ERROR"), MB_ICONINFORMATION);
 		return;
 	}
 	else {
+		// 显示图片
 		CStatic* pWnd = (CStatic*)GetDlgItem(IDC_PIC); // 得到 Picture Control 句柄  
 		pWnd->ModifyStyle(0, SS_BITMAP); // 修改它的属性为位图  
 		pWnd->SetBitmap((HBITMAP)::LoadImage(NULL, selectedPath.GetBuffer(0),
@@ -216,7 +217,7 @@ void CFaceDetectProDlg::OnBnClickedButton1() {
 			100,
 			100,
 			LR_CREATEDIBSECTION | LR_DEFAULTSIZE | LR_LOADFROMFILE));
-
+		//创建了人脸导入类的实例
 		FaceDetector aFaced(nameListPath,nameOfFace,selectedPath);
 		aFaced.Hello();
 	}

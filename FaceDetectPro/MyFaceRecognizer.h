@@ -19,10 +19,13 @@ public:
 
 protected:
 	CList<CString> nameList;
-	CString trainDataPath;
-	CString nameListPath;
-	cv::Ptr<cv::face::FaceRecognizer> trainModelFromDir(void);
-	int RecognizeFaceByModel(cv::Ptr<cv::face::FaceRecognizer> model);
+	CString trainDataPath;                  //人脸数据库
+	CString nameListPath;					//名字数据库
+
+	cv::Ptr<cv::face::FaceRecognizer> trainModelFromDir(void);          //训练并返回一个指向人脸识别模型的指针
+
+	int RecognizeFaceByModel(cv::Ptr<cv::face::FaceRecognizer> model);  //使用模型进行人脸识别
+
 	void getFiles(std::string path, std::vector<std::string>& files);
 
 	CString picPath;

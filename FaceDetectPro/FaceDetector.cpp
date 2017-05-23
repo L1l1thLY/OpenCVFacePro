@@ -31,35 +31,45 @@ FaceDetector::~FaceDetector()
 }
 
 int FaceDetector::Hello() {
-	int count = nameList.GetCount();
-	POSITION pos = nameList.GetHeadPosition();
-	for (int i = 0; i < count; i++) {
-		CString tempString = nameList.GetNext(pos);
-		MessageBox(tempString.GetBuffer(0));
-	}
-	nameIsExist();
-	MessageBox(picPath);
+	//测试代码 打印名字库所有名字
+	//int count = nameList.GetCount();
+	//POSITION pos = nameList.GetHeadPosition();
+	//for (int i = 0; i < count; i++) {
+	//	CString tempString = nameList.GetNext(pos);
+	//	MessageBox(tempString.GetBuffer(0));
+	//}
+	//测试代码 显示名字是否存在；
+	//nameIsExist();
+	//测试代码 显示选择路径
+	//MessageBox(picPath);
+
 	processAndCopy();
 	return 0;
 }
 
 //Private
+//工具方法：得到文件名
 CString FaceDetector::getFileFullName(CString csFilePath) {
 	int nPos = csFilePath.ReverseFind('\\'); // 文件路径，以'\'斜杠分隔的路径  
 	CString csFileFullName;
 	csFileFullName = csFilePath.Right(csFilePath.GetLength() - nPos - 1); // 获取文件全名，包括文件名和扩展名  
 	return csFileFullName;
 }
-int FaceDetector::processAndCopy() {
-	int peopleIndex;
 
-	CString fileName = getFileFullName(picPath);
+//
+int FaceDetector::processAndCopy() {
+	int peopleIndex;                    //序号
+
+	CString fileName = getFileFullName(picPath);  
+
 	CString trainDirPath = CString("D:\\FacesData\\TrainData\\P");
+
 	if (peopleIndex = nameIsExist()) {
 		CString peopleIndexString;
 		peopleIndexString.Format(_T("%d"), peopleIndex);
 
 		CString targetPath = trainDirPath + peopleIndexString + CString("\\")+ fileName;
+		//复制文件
 		if (CopyFile(picPath.GetBuffer(0),targetPath.GetBuffer(0),TRUE)) {
 			MessageBox(TEXT("导入成功"));
 			return 1;
@@ -96,6 +106,7 @@ int FaceDetector::processAndCopy() {
 	}
 	return 0;
 }
+
 int FaceDetector::nameIsExist() {
 	int count = nameList.GetCount();
 	//检查整个名单列表判断名字是否已经存在
